@@ -20,7 +20,7 @@ export const verifyPassword = async (password: string, hashPassWord: string): Pr
 
 
 // for creating jwt token 
-export const createToken = async (userId: string): Promise<string> => {
+export const generateToken = async (userId: string): Promise<string> => {
     return jwt.sign({userId}, process.env.JWT_SECRET!, { expiresIn: '1h' });
 };
 
