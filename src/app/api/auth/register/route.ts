@@ -10,8 +10,8 @@ export async function POST(req: NextRequest): Promise<Response> {
 
         if(!name || !email || !password) { return NextResponse.json({ message: "All fields are required" }, { status: 400 }); }
 
-        // const userAlreadyExists = await prisma.user.findUnique({ where: {email} });
-        // if(userAlreadyExists) { return NextResponse.json({ message: "User already exists" }, { status: 409 }); }
+        const userAlreadyExists = await prisma.user.findUnique({ where: {email} });
+        if(userAlreadyExists) { return NextResponse.json({ message: "User already exists" }, { status: 409 }); }
 
         let teamId: string | undefined;
         if(teamCode) {
