@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "username": "postgres",
+      "database": "team_mang",
+      "name": "local-postgres",
+      "connectString": "postgresql://postgres:postgres@localhost:5432/team_mang"
+    }
+  ]
+}

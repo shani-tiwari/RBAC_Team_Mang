@@ -10,8 +10,8 @@ export async function POST(req: NextRequest): Promise<Response> {
 
         if(!name || !email || !password) { return NextResponse.json({ message: "All fields are required" }, { status: 400 }); }
 
-        const userAlreadyExists = await prisma.user.findUnique({ where: {email} });
-        if(userAlreadyExists) { return NextResponse.json({ message: "User already exists" }, { status: 409 }); }
+        // const userAlreadyExists = await prisma.user.findUnique({ where: {email} });
+        // if(userAlreadyExists) { return NextResponse.json({ message: "User already exists" }, { status: 409 }); }
 
         let teamId: string | undefined;
         if(teamCode) {
@@ -33,13 +33,12 @@ export async function POST(req: NextRequest): Promise<Response> {
                 email,
                 password: hashedPassword,
                 role: assignedRole,
-                teamId: teamId || undefined,
+                teamId: teamId ?? undefined,
             },
             include: {
                 team: true
             }
         });
-
         //  generate token for user
         const token = await generateToken(user.id);
         
@@ -61,9 +60,8 @@ export async function POST(req: NextRequest): Promise<Response> {
             sameSite: "lax",
             maxAge: 60 * 60 * 24 * 7,
         });
-
  
-        return NextResponse.json({ message: "User registered successfully" , response}, { status: 200 }); 
+        return response;
 
     }catch(error) {
         console.log("Error occur during user registration" + error);
