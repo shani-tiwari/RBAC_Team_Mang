@@ -14,7 +14,7 @@ class ApiClient{
      * @param {RequestInit} options
      * @returns {Promise<T>}
      */
-    async request<T> (endpoint: string, options: RequestInit = {}) {
+    async request (endpoint: string, options: RequestInit = {}) {
         try {
             const url = `${this.baseUrl}/${endpoint}`;
 
@@ -32,7 +32,6 @@ class ApiClient{
             // redirect to login
             window.location.href = "/login";
         }
-
         if(!res.ok) {
             throw new Error(`API error: ${res.statusText}`);
         }
@@ -103,8 +102,6 @@ class ApiClient{
             body: JSON.stringify({teamId}),
         });
     }
-
-    
-    
-
 }
+
+export const apiClient = new ApiClient();
