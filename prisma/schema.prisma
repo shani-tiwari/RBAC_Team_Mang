@@ -13,7 +13,7 @@ enum Role {
   GUEST
 }
 
-  model User {
+  model User {   // control JS API
       id        String   @id @default(cuid())
       name      String
       email     String   @unique
@@ -27,7 +27,7 @@ enum Role {
       @@index([email])
       @@index([role])
       @@index([teamId])
-      @@map("users")
+      @@map("users")   // database table name 
   }
 
   model Team {
