@@ -1,4 +1,5 @@
 "use client"
+import { useAuth } from '@/app/provider/AuthProvider';
 import { User } from '@prisma/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
@@ -10,6 +11,7 @@ interface HeaderProps{
 export default function Header({user}: HeaderProps) {
 
     const pathname = usePathname();
+    const {logout} = useAuth();
     const navigation = [
         {name: "home", href: "/", show: true}, 
         {name: "dashboard", href: "/dashboard", show: true},
@@ -36,7 +38,8 @@ export default function Header({user}: HeaderProps) {
                     {user ? (
                         <>   
                             <li>
-                                <Link href="/logout">Logout</Link>
+                                <Link onClick={logout}
+                                 href="/logout">Logout</Link>
                             </li>
                             <li key={user?.role}>
                                 <Link href={`/profile/${user?.id}`}>{user?.name}</Link>
