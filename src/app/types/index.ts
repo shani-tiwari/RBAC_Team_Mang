@@ -6,6 +6,11 @@ export type LoginState = {
     error?: string;
 };
 
+export type RegisterState = {
+    success?: boolean;
+    error?: string;
+};
+
 export interface AuthContextType {
     user: User | null;
     login: (payload: FormData) => void;
@@ -13,4 +18,4 @@ export interface AuthContextType {
     hasPermission: (requiredRole: Role) => boolean;
     isPending: boolean;
     loginState: LoginState;
-}
+}
