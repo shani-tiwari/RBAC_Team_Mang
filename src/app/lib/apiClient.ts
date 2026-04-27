@@ -84,22 +84,22 @@ class ApiClient{
 //  user methods
     // get users
     async getUsers() {
-        return this.request("users", {
+        return this.request("user", {
             method: "GET",
         });
     } 
 //  admin methods
     // update user role
     async updateUserRole(id: string, role: string) {
-        return this.request(`users/${id}/role`, {
+        return this.request(`user/${id}/role`, {
             method: "PATCH",
             body: JSON.stringify({role}),
         });
     }
 
     // update user role
-    async assignUserToTeam(id: string, teamId: string) {
-        return this.request(`users/${id}/team`, {
+    async assignUserToTeam(id: string, teamId: string | null) {
+        return this.request(`user/${id}/team`, {
             method: "PATCH",
             body: JSON.stringify({teamId}),
         });
