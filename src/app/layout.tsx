@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AuthProvider from "./provider/AuthProvider";
 // import "./globals.css";
 
 
@@ -15,7 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen w-full bg-white/10">{children}</body>
+      <body className="min-h-screen w-full bg-white/10">
+        {/* auth provider  */}
+        <AuthProvider>
+            {/* ui provider  */}
+            {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }

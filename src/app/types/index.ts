@@ -1,38 +1,16 @@
-// enum --- used for 
-// types --- 
+import { Role, User } from "@prisma/client";
 
-export enum Role {
-    ADMIN = "ADMIN",
-    MANAGER = "MANAGER",
-    USER = "USER",
-    GUEST = "GUEST"
+export type LoginState = {
+    success?: boolean;
+    user?: User | null;
+    error?: string;
 };
 
-export interface user{
-    id: string,
-    name: string,
-    email: string,
-    role: Role,
-    team?: Team,
-    teamId?: string,
-    createdAt: Date,
-    updatedAt: Date
-}
-
-export interface Team{
-    id: string,
-    name: string,
-    members: user[],
-    code: string,
-    description?: string | null,
-    createdAt: Date,
-    updatedAt: Date
-}
-
-
-export interface AuthContextType{
-    user: user | null,
-    login: (formData: FormData) => Promise<void>;
+export interface AuthContextType {
+    user: User | null;
+    login: (payload: FormData) => void;
     logout: () => Promise<void>;
     hasPermission: (requiredRole: Role) => boolean;
-}
+    isPending: boolean;
+    loginState: LoginState;
+}

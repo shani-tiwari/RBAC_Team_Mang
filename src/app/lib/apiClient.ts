@@ -30,22 +30,24 @@ class ApiClient{
         // handle response status code - 401, 403
         if(res.status === 401 || res.status === 403) {
             // redirect to login
-            window.location.href = "/login";
+            if (window.location.pathname !== "/login") {
+                window.location.href = "/login";
+            }
         }
         if(!res.ok) {
             throw new Error(`API error: ${res.statusText}`);
         }
         
-        // const data = await res.json();
+        const data = await res.json();
 
-        // if (!res.ok) {
-        //     throw new Error(data?.message || `API error: ${res.statusText}`);
-        // }
+        if (!res.ok) {
+            throw new Error(data?.message || `API error: ${res.statusText}`);
+        }
 
-        // return data as T;
+        return data;
     } catch (error) {
         throw error;
-    }   
+    }
     }
 
 //  auth methods
