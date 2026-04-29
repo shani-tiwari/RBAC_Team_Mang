@@ -4,17 +4,18 @@ import { apiClient } from "@/app/lib/apiClient";
 import { RegisterState } from "@/app/types";
 import Link from "next/link";
 import { useActionState } from "react";
-
+import { User, Mail, Lock, Key, UserPlus } from "lucide-react";
 
 const RegisterPage = () => {
     const [state, registerAction, isPending] = useActionState<RegisterState, FormData>(
         async(_prevState, formData) => {
+            console.log(formData);
             const name = formData.get("name") as string;
             const email = formData.get("email") as string;
             const password = formData.get("password") as string;
             const teamCode = formData.get("teamCode") as string;
 
-            if (!name || !email || !password || !teamCode) {
+            if (!name || !email || !password) {
                 return { success: false, error: "All fields are required" };
             }
             try {
@@ -35,86 +36,117 @@ const RegisterPage = () => {
         { success: undefined, error: undefined }
     ) 
     return (
-        <div className="bg-slate-700 rounded-xl p-6 border max-w-md mx-auto mt-10">
-            <h1 className="text-2xl font-bold mb-4">Create Account</h1>
-
-            {/* if want to login */}
-            <div className="text-center mb-4">
-                <p className="text-sm text-gray-500">Already have an account?</p>
-                <Link href="/login" className="text-sm text-blue-500 hover:text-blue-600">Login</Link>
+        <div className="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 shadow-2xl max-w-xl mx-auto w-full">
+            <div className="mb-8 text-center">
+                <h1 className="text-3xl font-bold tracking-tight text-zinc-100 mb-2">Create Account</h1>
+                <p className="text-sm text-zinc-400">
+                    Already have an account?{" "}
+                    <Link href="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                        Log in instead
+                    </Link>
+                </p>
             </div>
 
-            {/* register form  */}
-            <form action={registerAction} className="space-y-4">
-                
-                {/* name */}
-                <div className="space-y-2">
-                    <label htmlFor="name" className="block text-sm font-medium">Name</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        required 
-                        autoComplete="name"
-                        placeholder="your full name - shani tiwari"
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+            <form action={registerAction} className="">
+                <div className="grid grid-cols-1 gap-4">
+                    {/* name */}
+                    <div className="space-y-1">
+                        <label htmlFor="name" className="block text-sm font-medium text-zinc-300">Full Name</label>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <User className="h-5 w-5 text-zinc-500" />
+                            </div>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                required 
+                                autoComplete="name"
+                                placeholder="John Doe"
+                                className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 text-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-zinc-600"
+                            />
+                        </div>
+                    </div>
 
-                {/* email */}
-                <div className="space-y-2">
-                    <label htmlFor="email" className="block text-sm font-medium">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required 
-                        autoComplete="email"
-                        placeholder="your email - shanitiwari2021@gmail.com"
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+                    {/* email */}
+                    <div className="space-y-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-zinc-300">Email Address</label>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Mail className="h-5 w-5 text-zinc-500" />
+                            </div>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                autoComplete="email"
+                                placeholder="name@example.com"
+                                className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 text-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-zinc-600"
+                            />
+                        </div>
+                    </div>
 
-                {/* password */}
-                <div className="space-y-2">
-                    <label htmlFor="password" className="block text-sm font-medium">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        required 
-                        autoComplete="new-password"
-                        placeholder="create a password"
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+                    {/* password */}
+                    <div className="space-y-1">
+                        <label htmlFor="password" className="block text-sm font-medium text-zinc-300">Password</label>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Lock className="h-5 w-5 text-zinc-500" />
+                            </div>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required 
+                                autoComplete="new-password"
+                                placeholder="••••••••"
+                                className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 text-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-zinc-600"
+                            />
+                        </div>
+                    </div>
 
-                {/* team code */}
-                <div className="space-y-2">
-                    <label htmlFor="teamCode" className="block text-sm font-medium">Team Code <span className="text-gray-500">(optional)</span></label>
-                    <input 
-                        type="text" 
-                        id="teamCode" 
-                        name="teamCode" 
-                        placeholder="enter your team code"
-                        autoComplete="off"
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <p className="text-xs text-gray-500">you can skip this or enter later if you have one</p>
+                    {/* team code */}
+                    <div className="space-y-1">
+                        <div className="flex justify-between items-center">
+                            <label htmlFor="teamCode" className="block text-sm font-medium text-zinc-300">Team Code</label>
+                            <span className="text-xs text-zinc-500">Optional</span>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Key className="h-5 w-5 text-zinc-500" />
+                            </div>
+                            <input 
+                                type="text" 
+                                id="teamCode" 
+                                name="teamCode" 
+                                placeholder="e.g. TEAM-123"
+                                autoComplete="off"
+                                className="w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 text-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-zinc-600"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* error message */}
-                {state?.error && <p className="text-red-500 text-sm">{state.error}</p>}
+                {state?.error && (
+                    <div className="p-2 mt-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm text-center">
+                        {state.error}
+                    </div>
+                )}
 
                 {/* submit button */}
                 <button 
                     type="submit" 
                     disabled={isPending} 
-                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-lg shadow-blue-900/20 mt-6"
                 >
-                    {isPending ? "Registering..." : "Register"}
+                    {isPending ? "Creating account..." : (
+                        <>
+                            Create Account <UserPlus className="w-4 h-4" />
+                        </>
+                    )}
                 </button>
-
             </form>
         </div>
     );
